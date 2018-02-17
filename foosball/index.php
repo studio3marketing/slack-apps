@@ -4,21 +4,22 @@ $slackToken = 'ePqjL5O0n1Or93nMdUMqNkdX';
 
 if($_POST["token"] == $slackToken){
 
-  $text = "lol wut";
+  $text = "lol wut, try `/foosball rankings`";
 
   /*
    * Rankings
    * */
   if($_POST["text"] == "rankings"){
     $text = generateRankingsText();
+    sendResponse($text, true);
   }
 
-  sendResponse($text);
+  sendResponse($text, false);
 }
 
-function sendResponse($text){
+function sendResponse($text, $public = false){
   $response = array(
-    "response_type" => "in_channel",
+    "response_type" => ($public ? "in_channel" : "not_in_channel"),
     "text" => $text
   );
   header('Content-Type: application/json');
