@@ -13,17 +13,17 @@ if($_POST["token"] == $slackToken){
     $text = generateRankingsText();
   }
 
-  //send response
-  $response = generateResponse($text);
-  header('Content-Type: application/json');
-  echo json_encode($response);
+  sendResponse($text);
 }
 
-function generateResponse($text){
-  return array(
+function sendResponse($text){
+  $response = array(
     "response_type" => "in_channel",
     "text" => $text
   );
+  header('Content-Type: application/json');
+  echo json_encode($response);
+  return;
 }
 
 function generateRankingsText(){
